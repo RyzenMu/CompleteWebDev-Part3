@@ -8,5 +8,10 @@
 <body>
     <h1>MongoDB CRUD Example</h1>
     {{message}}
+    <ul>
+        {{#each employees}}
+        <li>{{this.title}} - {{this.author}}</li>
+        {{/each}}
+    </ul>
 </body>
 </html>
