@@ -8,9 +8,9 @@ router.get('/', (req, res, next)=>{
 });
 
 router.post('/result', (req, res, next) => {
-    const firstNumber = parseInt(req.body.firstNumber);
-    const secondNumber = parseInt(req.body.secondNumber);
-    const result = firstNumber + secondNumber;
+    const firstNumber = parseInt(req.body.num1);
+    const secondNumber = parseInt(req.body.num2);
+    const result = num1 + num2;
     
     res.render('result', { result });
 });
