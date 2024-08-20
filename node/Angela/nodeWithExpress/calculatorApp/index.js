@@ -3,7 +3,7 @@ const app = express();
 const { engine } = require('express-handlebars');
 const router = require('./routes/route');
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({extended : true})); 
 
 
 app.use(express.static('public'));
