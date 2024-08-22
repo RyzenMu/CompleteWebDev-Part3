@@ -19,7 +19,7 @@ app.get('/api/courses/:id', (req, res)=>{
     // const courseKey = parseInt(req.params.id)
     // res.send(courses[courseKey-1].name);
     const course = courses.find(c=>c.id === parseInt(req.params.id));
-    if (!course) // 404
+    if (!course) // 404 page
 });
 
 app.get('/api/posts/:year/:month', (req, res)=>{
