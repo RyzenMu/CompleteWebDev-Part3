@@ -69,10 +69,48 @@ app.get('/api/courses/:id', (req, res) => {
   
     if (!course) {
       res.status(404).send("The course with the given id was not found");
+      return;
     } else {
       res.send(course);
     }
   });
+
+app.put('/api/courses/:id', (req, res)=>{
+     // look up the course
+     // if not existing, return 404
+     const course = courses.find(c=> c.id === parseInt(req.params.id));
+     if (!course)  return res.status(404).send('The course with the given id was not exist');
+
+     // validate
+     //if invalid, return 400 - Bad request 
+     const schema = {
+        name1 : Joi.string().min(3).required(),
+     };
+     const result = Joi.validate(req.body, schema);
+     if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+     }
+
+     //Update course
+     //Return the updated course tro the client
+     course.name1 = req.body.name1; 
+     res.send(course);
+});
+
+app.delete('/api/courses/:id', (req, res) => {
+    // look up the course
+    // Not existing, return 404
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) return res.status(404).send('The course with the given id was not found');
+
+    // Delete
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
+
+    //Return the same course
+    res.send(course);
+})
 
 app.get('/api/posts/:year/:month', (req, res)=>{
     // res.send(req.params);
