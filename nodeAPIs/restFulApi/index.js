@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 app.use(express.json()); 
+const Joi = require('joi');
 // app.use(bodyParser.urlencoded({extended: true}));
 const courses = [
     {id:1, name1: 'course1'},
@@ -16,7 +17,29 @@ app.get('/api/courses', (req, res)=>{
     res.send(courses);
 });
 
+// joi -- npm package for object schema validation
+
+
 app.post('/api/courses', (req, res) =>{
+
+    const schema = {
+        name1 : Joi.string().min(3).required(),
+    };
+
+    const result = Joi.validate(req.body, schema);
+    console.log(result);
+    
+
+    // if (!req.body.name || req.body.name.length <3) {
+    //     // 400 bad request
+    //     res.status(400).send('Name is required and shold be minimum 3 char');
+    //     return;
+    // }
+    if (result.error) {
+        res.status(400).send(result.error.details[0].message);
+        return;
+    }
+
     const course = {
         id : courses.length + 1,
         name1 : req.body.name1,
